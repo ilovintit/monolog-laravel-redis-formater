@@ -1,0 +1,21 @@
+{
+    "name": "ilovintit/monolog-laravel-redis-formater",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "古俊杰",
+            "email": "ilovintit@gmail.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.23",
+        "laravel/framework": "^5.5",
+        "webpatser/laravel-uuid": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Iit\\RedisMonolog\\": "src/"
+        }
+    }
+}
