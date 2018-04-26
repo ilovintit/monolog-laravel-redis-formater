@@ -9,19 +9,19 @@ use Predis\Client;
 class CustomRedisLogger
 {
     /**
-     * Customize the given logger instance.
+     * Create a custom Monolog instance.
      *
-     * @param  Logger $logger
-     * @return void
+     * @param  array $config
+     * @return \Monolog\Logger
      */
-    public function __invoke($logger)
+    public function __invoke(array $config)
     {
-        $logger->setHandlers([(new RedisHandler(new Client([
+        return new Logger('redis-sls', [(new RedisHandler(new Client([
             'scheme' => 'tcp',
-            'host' => env('REDIS_MONOLOG_HOST', env('REDIS_HOST', '127.0.0.1')),
-            'port' => env('REDIS_MONOLOG_PORT', env('REDIS_PORT', 6379)),
-            'password' => env('REDIS_MONOLOG_PASSWORD', env('REDIS_PASSWORD', null))
-        ]), env('REDIS_MONOLOG_NAME', 'RedisMonolog')))->setFormatter(new RedisFormatter())]);
-
+            'host' => $config['redis_host'],
+            'port' => $config['redis_port'],
+            'password' => $config['redis_password']
+        ]), $config['redis_monolog_name'] ? $config['redis_monolog_name'] : 'RedisMonolog'))
+            ->setFormatter(new RedisFormatter())]);
     }
 }
